@@ -21,8 +21,6 @@ function Dashboard() {
     fetchData();
   }, []);
 
-
-
   const getBudgetList = async () => {
     try {
       const result = await db
@@ -41,7 +39,7 @@ function Dashboard() {
     } catch (error) {
       setError("Failed to fetch budget data");
     } finally {
-      setLoading(false); // Ensure loading is turned off after fetching
+      setLoading(false);
     }
   };
 
@@ -59,10 +57,7 @@ function Dashboard() {
         .rightJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
         .orderBy(desc(Expenses.id));
 
-        setExpenseList(result)
-        console.log(expenseList);
-  
-      // setExpenseList(result || []);
+      setExpenseList(result || []);
     } catch (error) {
       console.error("Error fetching expenses:", error);
       setError("Failed to fetch expenses data");
@@ -70,20 +65,26 @@ function Dashboard() {
   };
 
   return (
-    <div className="p-10">
-      <h1 className="font-bold text-3xl">Dashboard</h1>
-      <p className="text-gray-500">Here's what's happening with your money, have a look</p>
+    <div className="p-4 md:p-10">
+      {/* Dashboard Header */}
+      <h1 className="font-bold text-2xl md:text-3xl text-center md:text-left">Dashboard</h1>
+      <p className="text-gray-500 text-sm md:text-base text-center md:text-left">
+        Here's what's happening with your money, have a look
+      </p>
 
+      {/* Loading/Error */}
       {loading ? (
         <div className="text-center mt-5">Loading...</div>
       ) : error ? (
-        <div className="text-red-500 mt-5">{error}</div>
+        <div className="text-red-500 mt-5 text-center">{error}</div>
       ) : (
         <CardInfo budgetList={budgetList} />
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-3 mt-6 p-1">
-        <div className="md:col-span-2">
+      {/* Main Content */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        {/* Left Section: Charts & Table */}
+        <div className="md:col-span-2 space-y-6">
           <BarChartDash budgetList={budgetList} />
           <ExpenseListTable
             expenseList={expenseList}
@@ -92,13 +93,17 @@ function Dashboard() {
             }}
           />
         </div>
+
+        {/* Right Section: Latest Budget */}
         <div>
-          <h2 className="font-bold pl-5 mb-5">Latest Budget</h2>
-          {budgetList.length > 0 ? (
-            budgetList.map((budget, i) => <BudgetItems budget={budget} key={i} />)
-          ) : (
-            <p className="pl-5">No budgets available</p>
-          )}
+          <h2 className="font-bold text-lg text-center md:text-left mb-4">Latest Budget</h2>
+          <div className="space-y-4">
+            {budgetList.length > 0 ? (
+              budgetList.map((budget, i) => <BudgetItems budget={budget} key={i} />)
+            ) : (
+              <p className="text-gray-500 text-center md:text-left">No budgets available</p>
+            )}
+          </div>
         </div>
       </div>
     </div>

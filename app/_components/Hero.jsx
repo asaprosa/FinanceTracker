@@ -5,7 +5,7 @@ const Hero = () => {
   return (
     <>
       <section className="bg-gray-50 items-center flex flex-col h-[1050px]">
-        <div className="mx-auto max-w-screen-xl px-4 py-16 lg:flex lg:h-screen lg:items-center">
+        <div className="mx-auto max-w-screen-xl px-4 py-16 lg:flex lg:h-screen lg:items-center ">
           <div className="mx-auto max-w-xl text-center">
             <h1 className="text-3xl font-extrabold sm:text-5xl">
               Manage Your Expenses,
@@ -18,17 +18,18 @@ const Hero = () => {
 
             <div className="mt-6 flex flex-wrap justify-center">
               <a
-                className="block w-full rounded bg-[#3a4159] px-12 py-3 text-sm font-medium text-white shadow hover:bg-[#2c3248] focus:outline-none focus:ring active:bg-[#3a4159] sm:w-auto"
+                className="block w-full rounded bg-black  px-12 py-3 text-sm font-medium text-white shadow hover:bg-[#2c3248] focus:outline-none focus:ring active:bg-[#3a4159] sm:w-auto"
                 href="#"
               >
                 Get Started
               </a>
             </div>
           </div>
+         
         </div>
-        <div > {/* Reduced margin-top to bring the image closer */}
+        <div className='mb-16'> {/* Reduced margin-top to bring the image closer */}
           <Image
-            src="/dashboard.png"
+            src="/main.png"
             alt="dashboard"
             width={1000}
             height={700}
